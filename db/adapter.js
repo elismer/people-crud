@@ -25,7 +25,10 @@ const read = ({ email }) => {
 const update = ({ id, data }) => {
   const person = db.get('people').find({ id }).value()
   const personUpdate = { ...person, ...data }
-  db.get('people').find({ id }).assing({ personUpdate }).write()
+  db.get('people')
+    .find({ id })
+    .assign({ ...personUpdate })
+    .write()
   return personUpdate
 }
 

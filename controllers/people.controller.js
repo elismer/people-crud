@@ -11,4 +11,28 @@ const getPerson = (req, res, next) => {
   person ? res.json({ person, msg: 'Person found' }) : res.sendStatus(404)
 }
 
-module.exports = { getAllPeople, getPerson }
+const createPerson = (req, res, next) => {
+  const { person } = req.body
+  const newPerson = personService.createPerson({ person })
+  res.json({ newPerson })
+}
+
+const updatePerson = (req, res, next) => {
+  const { id, data } = req.body
+  const personUpdated = personService.updatePerson({ id, data })
+  res.json({ personUpdated })
+}
+
+const deletePerson = (req, res, next) => {
+  const { id } = req.body
+  const idDeleted = personService.deletePerson({ id })
+  res.json({ idDeleted })
+}
+
+module.exports = {
+  getAllPeople,
+  getPerson,
+  createPerson,
+  updatePerson,
+  deletePerson,
+}
