@@ -7,12 +7,13 @@ const {
   updatePerson,
   deletePerson,
 } = require('../controllers/people.controller')
+const validate = require('../utils/middlewares/validation')
 
 router.get('/', getAllPeople)
 
 router.get('/:email', getPerson)
 
-router.post('/', createPerson)
+router.post('/', validate, createPerson)
 
 router.put('/', updatePerson)
 
