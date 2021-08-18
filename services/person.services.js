@@ -1,7 +1,7 @@
 const db = require('../db/adapter')
 
-const getAllPeople = () => {
-  return db.list()
+const getAllPeople = ({ first_name, last_name, gender }) => {
+  return db.list({ first_name, last_name, gender })
 }
 
 const getPerson = ({ email }) => {

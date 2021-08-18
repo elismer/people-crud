@@ -1,13 +1,16 @@
 const personService = require('../services/person.services')
 
 const getAllPeople = (req, res, next) => {
-  const people = personService.getAllPeople()
+  const { first_name, last_name, gender } = req.body
+  console.log({ first_name, last_name, gender })
+  const people = personService.getAllPeople({ first_name, last_name, gender })
   res.json({ people })
 }
 
 const getPerson = (req, res, next) => {
-  const { email } = req.params
-  const person = personService.getPerson({ email })
+  const { email, ip_addres } = req.params
+  console.log({ email, ip_addres, body: req.body })
+  const person = personService.getPerson({ email, ip_addres })
   person ? res.json({ person, msg: 'Person found' }) : res.sendStatus(404)
 }
 

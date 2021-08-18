@@ -14,8 +14,12 @@ const create = ({ person }) => {
   return person
 }
 
-const read = ({ email }) => {
-  const person = db.get('people').find({ email: email }).value()
+const read = ({ email, ip_adress }) => {
+  const search = {
+    ...(email && { email }),
+    ...(ip_adress && { ip_adress }),
+  }
+  const person = db.get('people').find(search).value()
   if (person) {
     delete person.id
     return person
@@ -37,8 +41,13 @@ const deleted = ({ id }) => {
   return id
 }
 
-const list = () => {
-  const people = db.get('people').value()
+const list = ({ first_name, last_name, gender }) => {
+  const search = {
+    ...(first_name && { first_name }),
+    ...(last_name && { last_name }),
+    ...(gender && { gender }),
+  }
+  const people = db.get('people').filter(search)
   return people.map(person => {
     const { id, ...data } = person
     return data

@@ -11,11 +11,12 @@ const {
   validatePerson,
   validateUpdatePerson,
 } = require('../utils/middlewares/validation')
+
 const logger = require('../utils/logger')
 
 router.get('/', getAllPeople)
 
-router.get('/:email', getPerson)
+router.get('/:email-:ip_address', getPerson)
 
 router.post(
   '/',
