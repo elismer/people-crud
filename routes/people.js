@@ -1,5 +1,4 @@
 const express = require('express')
-const router = express.Router()
 const {
   getAllPeople,
   getPerson,
@@ -14,22 +13,26 @@ const {
 
 const logger = require('../utils/logger')
 
-router.get('/', getAllPeople)
+const peopleRouter = app => {
+  const router = express.Router()
+  app.use('/api/people', router)
+  router.get('/', getAllPeople)
 
-router.get('/:email-:ip_address', getPerson)
+  router.get('/:email-:ip_address', getPerson)
 
-router.post(
-  '/',
-  (req, res, next) => {
-    logger.log({ date: new Date().toISOString(), ip: req.ip, body: req.body })
-    next()
-  },
-  validatePerson,
-  createPerson
-)
+  router.post(
+    '/',
+    (req, res, next) => {
+      logger.log({ date: new Date().toISOString(), ip: req.ip, body: req.body })
+      next()
+    },
+    validatePerson,
+    createPerson
+  )
 
-router.put('/', validateUpdatePerson, updatePerson)
+  router.put('/', validateUpdatePerson, updatePerson)
 
-router.delete('/', deletePerson)
+  router.delete('/', deletePerson)
+}
 
-module.exports = router
+module.exports = peopleRouter

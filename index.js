@@ -9,7 +9,7 @@ const { errorHandler, logError } = require('./utils/middlewares/errorHandler')
 app.use(express.json())
 
 // Rutas
-app.use('/api/people', people)
+people(app)
 
 //Middleware de error
 app.use(logError)
